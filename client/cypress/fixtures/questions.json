@@ -1,0 +1,46 @@
+[
+  {
+    "_id": "1",
+    "question": "What does the method append() do in a list?",
+    "answers": [
+      {
+        "text": "Adds a new element at the end of the list",
+        "isCorrect": true
+      },
+      {
+        "text": "Removes the last element of the list",
+        "isCorrect": false
+      },
+      {
+        "text": "Sorts the list in ascending order",
+        "isCorrect": false
+      },
+      {
+        "text": "Removes all elements from the list",
+        "isCorrect": false
+      }
+    ]
+  },
+  {
+    "_id": "2",
+    "question": "How do you create a tuple in Python?",
+    "answers": [
+      {
+        "text": "[]",
+        "isCorrect": false
+      },
+      {
+        "text": "{}",
+        "isCorrect": false
+      },
+      {
+        "text": "()",
+        "isCorrect": true
+      },
+      {
+        "text": "tuple[]",
+        "isCorrect": false
+      }
+    ]
+  }
+]

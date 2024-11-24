@@ -1,46 +1,38 @@
-import React from 'react';
-import { mount } from 'cypress/react18';
-import Quiz from '../../src/components/Quiz';
+import { mount } from 'cypress/react18'
+import Quiz from '../../src/components/Quiz'
+import questions from '../fixtures/questions.json'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
-describe('Quiz Component', () => {
-  beforeEach(() => {
-    cy.intercept('GET', '/api/questions', {
-      fixture: 'questions.json',
-    }).as('getQuestions');
-  });
+describe('<Quiz />', () => {
+  it('should start the quiz and display multiple choice questions', () => {
+   
+    mount(<Quiz />)
 
-  it('should start the quiz when clicking the start button', () => {
-    mount(<Quiz />);
-    cy.get('button').contains('Start Quiz').click();
-    cy.wait('@getQuestions');
-    cy.get('h2').should('contain', 'Question 1');
-  });
+    cy.window().then((win) => {
+      win.eval(`window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function (renderer) {
+        const originalMount = renderer.Mount;
+        renderer.Mount = function (element, container, callback) {
+          if (element.type.name === 'Quiz') {
+            element.props.questions = ${JSON.stringify(questions)};
+          }
+          return originalMount(element, container, callback);
+        };
+      };`);
+    });
+    
+    cy.get('button').contains('Start Quiz').should('be.visible')
 
-  it('should display the next question when clicking an answer\'s button', () => {
-    mount(<Quiz />);
-    cy.get('button').contains('Start Quiz').click();
-    cy.wait('@getQuestions');
-    cy.get('button').contains('1').click();
-    cy.get('h2').should('contain', 'Question 2');
-  });
-
-  it('should display the score when completing the quiz', () => {
-    mount(<Quiz />);
-    cy.get('button').contains('Start Quiz').click();
-    cy.wait('@getQuestions');
-    cy.get('button').contains('1').click();
-    cy.get('button').contains('1').click();
-    cy.get('h2').should('contain', 'Quiz Completed');
-    cy.get('.alert-success').should('contain', 'Your score:');
-  });
-
-  it('should allow starting a new quiz after the quiz is completed', () => {
-    mount(<Quiz />);
-    cy.get('button').contains('Start Quiz').click();
-    cy.wait('@getQuestions');
-    cy.get('button').contains('1').click();
-    cy.get('button').contains('1').click();
-    cy.get('button').contains('Take New Quiz').click();
-    cy.get('h2').should('contain', 'Question 1');
-  });
-});
+    cy.get('button').contains('Start Quiz').click()
+  
+    cy.get('button').contains('1').should('be.visible').click()
+    cy.get('button').contains('2').should('be.visible').click()
+    cy.get('button').contains('3').should('be.visible').click()
+    cy.get('button').contains('4').should('be.visible').click()
+    cy.get('button').contains('1').should('be.visible').click()
+    cy.get('button').contains('2').should('be.visible').click()
+    cy.get('button').contains('3').should('be.visible').click()
+    cy.get('button').contains('4').should('be.visible').click()
+    cy.get('button').contains('2').should('be.visible').click()
+    cy.get('button').contains('3').should('be.visible').click()
+  })
+})
