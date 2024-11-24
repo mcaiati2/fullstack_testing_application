@@ -29,7 +29,7 @@ You must run npm i to install all necessary dependencies. This app uses dev depe
     "wait-on"
 
 ## Usage
-In your terminal, run the npm test command. This will automatically open Cypress, which will run through all of the configured end to end / component tests. Choose E2E if you'd like to run thgouh all of the configured test, and choose Component if you'd like to target the Quiz component specifically to test.
+[Link to video walkthrough](https://drive.google.com/file/d/1A3kOSudF-rpjTKs491wFY9lrPl0RwkIA/view?usp=drive_link). In your terminal, run the npm test command. This will automatically open Cypress, which will run through all of the configured end to end / component tests. Choose E2E if you'd like to run through all of the configured tests, and choose Component if you'd like to target the Quiz component specifically to test.
 
 ## Contributing
 N/A
